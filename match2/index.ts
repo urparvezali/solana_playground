@@ -15,14 +15,8 @@ const sender = Keypair.generate();
 const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 
 
-await airdropIfRequired(
-	connection,
-	sender.publicKey,
-	1 * LAMPORTS_PER_SOL,
-	0.5 * LAMPORTS_PER_SOL,
-);
-// const signature1 = await connection.requestAirdrop(sender.publicKey, LAMPORTS_PER_SOL);
-// const x = await connection.confirmTransaction(signature1, "confirmed");
+const signature1 = await connection.requestAirdrop(sender.publicKey, LAMPORTS_PER_SOL);
+const x = await connection.confirmTransaction(signature1, "confirmed");
 
 let balance = await connection.getBalance(sender.publicKey);
 let balance_in_sol = balance / LAMPORTS_PER_SOL;
